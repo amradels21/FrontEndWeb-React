@@ -1,14 +1,8 @@
-import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,
-    CardTitle } from 'reactstrap';
+import React from 'react';
+import { Card, CardImg, CardText, CardBody,CardTitle } from 'reactstrap';
 
-class DishDetail extends Component
-    {
-    constructor(props){
-         super(props);
-        }
 
-    renderDish(dish){
+        function RenderDish({dish}) {
         if(dish!=null)
             return(
                 <Card>
@@ -27,10 +21,10 @@ class DishDetail extends Component
         }
 
 
-    renderComments(comments) {
-        if(comments!=null){
+        function RenderComments({comments}) {
+            if(comments!=null){
               
-            const commentDetails = comments.map((comment)=> {
+                const commentDetails = comments.map((comment)=> {
                    
                 const options = {
                   year: 'numeric',
@@ -70,31 +64,31 @@ class DishDetail extends Component
 
 
 
-     render(){
+        const  DishDetail = (props) => {
             
-        const dish = this.props.dish
-        if (dish == null) {
-                return (
-                <div></div>
-                );
-            }
+            const dish = props.dish
+            if (dish == null) {
+                 return (
+                 <div></div>
+                 );
+              }
             
            
-        return(
-            <div className="container">
-                <div className="row">
+            return(
+                <div className="container">
+                 <div className="row">
                         <div className="col-12 col-md-5 m-1">
-                            {this.renderDish(dish)}
+                            <RenderDish dish = {props.dish} />
                         </div>
 
                         <div className="col-12 col-md-5 m-1">
-                             {this.renderComments(dish.comments)}
+                             <RenderComments comments = {props.dish.comments}/>
                         </div>
-                </div>
-            </div>
+                    </div>
+                 </div>
                 
             );
         }
-    }
+    
 
 export default DishDetail;
