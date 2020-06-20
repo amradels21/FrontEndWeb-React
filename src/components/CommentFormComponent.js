@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
-    Button, Modal, ModalHeader, ModalBody,
-    Form, FormGroup, Input, Label, Row, Col } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody,Label, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 
 
 const required = (val) => val && val.length;
@@ -25,12 +23,10 @@ class CommentForm extends Component{
     }
 
     handleSubmit(values) {
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
-
-        //Close After Submission
-        // this.setState({
-        //     isModalOpen: false
-        // });
+        console.log('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + JSON.stringify(values));
+        this.props.resetFeedbackForm();
+        // event.preventDefault();
     }
 
 
@@ -53,8 +49,7 @@ class CommentForm extends Component{
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
                       
-                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
-                            <Row className="form-group">
+                    <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>                            <Row className="form-group">
                                 <Label htmlfor="rating" md={12}>Rating</Label>
                                 <Col md={12}>
                                 <Control.select model=".rating" name="rating" id="rating" md={12} className="form-control" defaultValue={1} >
@@ -108,7 +103,7 @@ class CommentForm extends Component{
                                 </Col>
                             </Row>
                             
-                        </LocalForm>
+                        </Form>
                         
                     
                     </ModalBody>
